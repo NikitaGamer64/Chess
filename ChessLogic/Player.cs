@@ -1,7 +1,7 @@
 ﻿namespace ChessLogic
 {
     public enum Player
-    //Игроки и цвета фигур
+    //Игрок, цвета фигур и полей
     {
         None, White, Black
     }
