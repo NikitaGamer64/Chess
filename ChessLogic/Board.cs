@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChessLogic
+﻿namespace ChessLogic
 {
     public class Board
     //Структура доски
@@ -50,8 +44,8 @@ namespace ChessLogic
 
             for (int c = 0; c < 8; c++)
             {
-                this[1, c] = new Rook(Player.Black);
-                this[6, c] = new Rook(Player.White);
+                this[1, c] = new Pawn(Player.Black);
+                this[6, c] = new Pawn(Player.White);
             }
         }
         public static bool IsInside(Position pos)
