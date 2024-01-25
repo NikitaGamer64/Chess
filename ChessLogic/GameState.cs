@@ -26,6 +26,7 @@ namespace ChessLogic
         public void MakeMove(Move move)
         {
             move.Execute(Board);
+            CurrentPlayer = CurrentPlayer.Opponent();
         }
     }
 }
