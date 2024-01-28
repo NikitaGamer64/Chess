@@ -45,7 +45,6 @@
                     Width="80"
                     Height="30"
                     Click="Exit_Click"/>
-        </Grid>
-            
+        </Grid>            
     </Border>
 </UserControl>
