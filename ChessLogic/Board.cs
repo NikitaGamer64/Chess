@@ -4,6 +4,14 @@
     //Структура доски
     {
         private readonly Piece[,] pieces = new Piece[8, 8];
+
+        private readonly Dictionary<Player, Position> pawnSkipPositions =
+            new()
+            {
+                { Player.White, null },
+                { Player.Black, null },
+            };
+
         public Piece this[int row, int col]
         {
             get { return pieces[row, col]; }
@@ -13,6 +21,15 @@
         {
             get { return this[pos.Row, pos.Column]; }
             set { this[pos.Row, pos.Column] = value; }
+        }
+
+        public Position GetPawnSkipPosition(Player player)
+        {
+            return pawnSkipPositions[player];
+        }
+        public void SetSpawnSkipPosition(Player player, Position pos)
+        {
+            pawnSkipPositions[player] = pos;
         }
 
         public static Board Initial()
