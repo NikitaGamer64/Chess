@@ -6,19 +6,12 @@ using System.Threading.Tasks;
 
 namespace ChessLogic
 {
-    public class PawnPromotion : Move
+    public class PawnPromotion(Position from, Position to, PieceType newType) : Move
     {
         public override MoveType Type => MoveType.PawnPromotion;
-        public override Position FromPos { get; }
-        public override Position ToPos { get; }
-        private readonly PieceType newType;
-
-        public PawnPromotion(Position from, Position to, PieceType newType)
-        {
-            FromPos = from;
-            ToPos = to;
-            this.newType = newType;
-        }
+        public override Position FromPos { get; } = from;
+        public override Position ToPos { get; } = to;
+        private readonly PieceType newType = newType;
 
         private Piece CreatePromotionPiece(Player color)
         {
