@@ -36,7 +36,7 @@ namespace ChessUI
                 _ => "Ничья"
             };
         }
-        private static string PlayerString(Player player)
+        private static string PlayerString1(Player player)
         {
             return player switch
             {
@@ -45,15 +45,25 @@ namespace ChessUI
                 _ => ""
             };
         }
+        private static string PlayerString2(Player player)
+        {
+            return player switch
+            {
+                Player.White => "Чёрные",
+                Player.Black => "Белые",
+                _ => ""
+            };
+        }
         private static string GetReasonText(EndReason reason, Player currentPlayer)
         {
             return reason switch
             {
-                EndReason.Stalemate => $"Пат {PlayerString(currentPlayer)}",
-                EndReason.Checkmate => $"Мат {PlayerString(currentPlayer)}",
+                EndReason.Stalemate => $"Пат {PlayerString1(currentPlayer)}",
+                EndReason.Checkmate => $"Мат {PlayerString1(currentPlayer)}",
+                EndReason.Resign => $"{PlayerString2(currentPlayer)} сдались",
                 EndReason.FiftyMoveRule => "50 беспрогрессивных ходов",
                 EndReason.InsufficientMaterial => "Недостаточно фигур",
-                EndReason.ThreefoldRepetition=> "Позиция повторилась 3 раза",
+                EndReason.ThreefoldRepetition => "Позиция повторилась 3 раза",
                 _ => ""
             };
         }

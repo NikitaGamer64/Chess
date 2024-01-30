@@ -8,6 +8,6 @@ namespace ChessLogic
 {
     public enum EndReason
     {
-        Checkmate, Stalemate, FiftyMoveRule, InsufficientMaterial, ThreefoldRepetition
+        Checkmate, Stalemate, Resign, FiftyMoveRule, InsufficientMaterial, ThreefoldRepetition
     }
 }

@@ -49,7 +49,7 @@ namespace ChessLogic
             {
                 if (Board.IsInCheck(CurrentPlayer))
                 {
-                    Result = Result.Win(CurrentPlayer.Opponent());
+                    Result = Result.Win(CurrentPlayer.Opponent(), EndReason.Checkmate);
                 }
                 else
                 {
