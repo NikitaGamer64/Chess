@@ -2,6 +2,6 @@
 {
     public enum Option
     {
-        Restart, Exit, Continue
+        Restart, Exit, Continue, Resign, Draw
     }
 }

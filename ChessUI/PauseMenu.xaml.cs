@@ -31,8 +31,7 @@ namespace ChessUI
 
         private void Resign_Click(object sender, RoutedEventArgs e)
         {
-            GameState.Result = Result.Win(GameState.CurrentPlayer.Opponent(), EndReason.Resign);
-            OptionSelected?.Invoke(Option.Restart);
+            OptionSelected?.Invoke(Option.Resign);
         }
     }
 }

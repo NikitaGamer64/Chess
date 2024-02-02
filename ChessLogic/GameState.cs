@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ChessLogic
 {
@@ -14,7 +15,6 @@ namespace ChessLogic
         public Player CurrentPlayer { get; private set; } = player;
         public Result Result { get; private set; } = null;
         //Чей ход
-
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
         {
             if (Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
@@ -35,7 +35,7 @@ namespace ChessLogic
 
         public IEnumerable<Move> AllLegalMovesFor(Player player)
         {
-            IEnumerable<Move> moveCandidates = 
+            IEnumerable<Move> moveCandidates =
                 Board.PiecePositionsFor(player).SelectMany(pos =>
                 {
                     Piece piece = Board[pos];
@@ -47,6 +47,7 @@ namespace ChessLogic
         {
             if (!AllLegalMovesFor(CurrentPlayer).Any())
             {
+
                 if (Board.IsInCheck(CurrentPlayer))
                 {
                     Result = Result.Win(CurrentPlayer.Opponent(), EndReason.Checkmate);
@@ -56,7 +57,15 @@ namespace ChessLogic
                     Result = Result.Draw(EndReason.Stalemate);
                 }
             }
+            //if (здесь нужно вставить момент сдачи, когда нажимаешь на кнопку Resign)
+            //хотя бы через метод, например Resign(), но тогда надо сам метод расписать
+            //{ Result = Result.Win(CurrentPlayer.Opponent(), EndReason.Resign); }
+            else if (Board.InsufficientMaterial())
+            {
+                Result = Result.Draw(EndReason.InsufficientMaterial);
+            }
         }
+
         public bool IsGameOver()
         {
             return Result != null;

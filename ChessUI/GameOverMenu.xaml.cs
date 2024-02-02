@@ -64,6 +64,7 @@ namespace ChessUI
                 EndReason.FiftyMoveRule => "50 беспрогрессивных ходов",
                 EndReason.InsufficientMaterial => "Недостаточно фигур",
                 EndReason.ThreefoldRepetition => "Позиция повторилась 3 раза",
+                EndReason.Agreement => "По соглашению",
                 _ => ""
             };
         }

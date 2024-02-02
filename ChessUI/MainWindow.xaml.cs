@@ -221,8 +221,10 @@ namespace ChessUI
             {
                 MenuContainer.Content = null;
 
-                if(option == Option.Restart)
+                if (option == Option.Resign)
                 {
+                    MenuContainer.Content = null;
+                    
                     ShowGameOver();
                 }
             };
