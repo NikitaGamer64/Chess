@@ -40,6 +40,7 @@ namespace ChessUI
 
                     Rectangle highlight = new();
                     highLights[r, c] = highlight;
+                    HighlightGrid.Children.Add(highlight);
                 }
             }
         }
@@ -215,6 +216,7 @@ namespace ChessUI
         private void ShowPauseMenu()
         {
             PauseMenu pauseMenu = new();
+            
             MenuContainer.Content = pauseMenu;
 
             pauseMenu.OptionSelected += option =>
@@ -224,7 +226,7 @@ namespace ChessUI
                 if (option == Option.Resign)
                 {
                     MenuContainer.Content = null;
-                    
+                    gameState.Resign();
                     ShowGameOver();
                 }
             };

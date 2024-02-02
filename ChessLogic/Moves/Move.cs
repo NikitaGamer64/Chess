@@ -15,7 +15,7 @@ namespace ChessLogic
         public abstract Position ToPos { get; }
         //Поле, на которое пошла фигура
 
-        public abstract void Execute(Board board);
+        public abstract bool Execute(Board board);
         public virtual bool IsLegal(Board board)
         {
             Player player = board[FromPos].Color;

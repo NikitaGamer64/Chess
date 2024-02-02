@@ -49,8 +49,8 @@ namespace ChessUI
         {
             return player switch
             {
-                Player.White => "Чёрные",
-                Player.Black => "Белые",
+                Player.White => "Белые",
+                Player.Black => "Чёрные",
                 _ => ""
             };
         }

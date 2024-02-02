@@ -8,10 +8,12 @@
 
         private readonly Position capturePos = new(from.Row, from.Column);
 
-        public override void Execute(Board board)
+        public override bool Execute(Board board)
         {
             new NormalMove(FromPos, ToPos).Execute(board);
             board[capturePos] = null;
+
+            return true;
         }
     }
 }

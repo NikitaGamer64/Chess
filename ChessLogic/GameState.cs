@@ -15,6 +15,7 @@ namespace ChessLogic
         public Player CurrentPlayer { get; private set; } = player;
         public Result Result { get; private set; } = null;
         //Чей ход
+        private int noCaptureOrPawnMoves = 0;
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
         {
             if (Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
@@ -28,9 +29,18 @@ namespace ChessLogic
         public void MakeMove(Move move)
         {
             Board.SetSpawnSkipPosition(CurrentPlayer, null);
-            move.Execute(Board);
+            bool captureOrPawn = move.Execute(Board);
             CurrentPlayer = CurrentPlayer.Opponent();
             CheckForGameOver();
+
+            if (captureOrPawn)
+            {
+                noCaptureOrPawnMoves = 0;
+            }
+            else
+            {
+                noCaptureOrPawnMoves++;
+            }
         }
 
         public IEnumerable<Move> AllLegalMovesFor(Player player)
@@ -57,18 +67,28 @@ namespace ChessLogic
                     Result = Result.Draw(EndReason.Stalemate);
                 }
             }
-            //if (здесь нужно вставить момент сдачи, когда нажимаешь на кнопку Resign)
-            //хотя бы через метод, например Resign(), но тогда надо сам метод расписать
-            //{ Result = Result.Win(CurrentPlayer.Opponent(), EndReason.Resign); }
             else if (Board.InsufficientMaterial())
             {
                 Result = Result.Draw(EndReason.InsufficientMaterial);
             }
+            else if (FiftyMoveRule())
+            {
+                Result = Result.Draw(EndReason.FiftyMoveRule);
+            }
         }
-
+        public void Resign()
+        {
+            Result = Result.Win(CurrentPlayer.Opponent(), EndReason.Resign);
+        }
         public bool IsGameOver()
         {
             return Result != null;
+        }
+
+        private bool FiftyMoveRule()
+        {
+            int fullMoves = noCaptureOrPawnMoves / 2;
+            return fullMoves == 50;
         }
     }
 }
