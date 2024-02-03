@@ -8,14 +8,25 @@ using System.Xml.Serialization;
 
 namespace ChessLogic
 {
-    public class GameState(Player player, Board board)
+    public class GameState
     {
-        public Board Board { get; } = board;
+        public Board Board { get; }
         //Конфигурация доски
-        public Player CurrentPlayer { get; private set; } = player;
+        public Player CurrentPlayer { get; private set; }
         public Result Result { get; private set; } = null;
         //Чей ход
         private int noCaptureOrPawnMoves = 0;
+        private string stateString;
+        private readonly Dictionary<string, int> stateHistory = [];
+
+        public GameState(Player player, Board board)
+        {
+            CurrentPlayer = player;
+            Board = board;
+
+            stateString = new StateString(CurrentPlayer, board).ToString();
+            stateHistory[stateString] = 1;
+        }
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
         {
             if (Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
@@ -31,11 +42,13 @@ namespace ChessLogic
             Board.SetSpawnSkipPosition(CurrentPlayer, null);
             bool captureOrPawn = move.Execute(Board);
             CurrentPlayer = CurrentPlayer.Opponent();
+            UpdateStateString();
             CheckForGameOver();
 
             if (captureOrPawn)
             {
                 noCaptureOrPawnMoves = 0;
+                stateHistory.Clear();
             }
             else
             {
@@ -75,6 +88,10 @@ namespace ChessLogic
             {
                 Result = Result.Draw(EndReason.FiftyMoveRule);
             }
+            else if (ThreefoldRepetition())
+            {
+                Result = Result.Draw(EndReason.ThreefoldRepetition);
+            }
         }
         public void Resign()
         {
@@ -89,6 +106,24 @@ namespace ChessLogic
         {
             int fullMoves = noCaptureOrPawnMoves / 2;
             return fullMoves == 50;
+        }
+
+        private void UpdateStateString()
+        {
+            stateString = new StateString(CurrentPlayer, Board).ToString();
+
+            if (!stateHistory.TryGetValue(stateString, out int value))
+            {
+                stateHistory[stateString] = 1;
+            }
+            else
+            {
+                stateHistory[stateString] = ++value;
+            }
+        }
+        private bool ThreefoldRepetition()
+        {
+            return stateHistory[stateString] == 3;
         }
     }
 }
