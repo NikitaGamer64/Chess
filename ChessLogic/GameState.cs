@@ -97,6 +97,10 @@ namespace ChessLogic
         {
             Result = Result.Win(CurrentPlayer.Opponent(), EndReason.Resign);
         }
+        public void DrawAgree()
+        {
+            Result = Result.Draw(EndReason.Agreement);
+        }
         public bool IsGameOver()
         {
             return Result != null;

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\admin\source\repos\Chess\ChessUI\App.xaml
-4-1284736647
+51307936931
 
-12180276032
+13-1240134018
 199-1649457897
-GameOverMenu.xaml;MainWindow.xaml;PauseMenu.xaml;PromotionMenu.xaml;
+DrawMenu.xaml;GameOverMenu.xaml;MainWindow.xaml;PauseMenu.xaml;PromotionMenu.xaml;
 
-False
+True
 

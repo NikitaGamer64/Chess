@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace ChessLogic
 {
-    public class Result
+    public class Result(Player winner, EndReason reason)
     {
-        public Player Winner { get; }
-        public EndReason Reason { get; }
-        public Result(Player winner, EndReason reason)
-        {
-            Winner = winner;
-            Reason = reason;
-        }
+        public Player Winner { get; } = winner;
+        public EndReason Reason { get; } = reason;
 
         public static Result Win(Player winner, EndReason reason)
         {

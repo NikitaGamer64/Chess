@@ -211,22 +211,51 @@ namespace ChessUI
             {
                 ShowPauseMenu();
             }
+            else if (e.Key == Key.Escape)
+            {
+                MenuContainer.Content = null;
+            }
         }
 
         private void ShowPauseMenu()
         {
             PauseMenu pauseMenu = new();
-            
             MenuContainer.Content = pauseMenu;
 
             pauseMenu.OptionSelected += option =>
             {
                 MenuContainer.Content = null;
 
-                if (option == Option.Resign)
+                if (option == Option.Restart)
                 {
-                    MenuContainer.Content = null;
+                    RestartGame();
+                }
+                else if (option == Option.Draw)
+                {
+                    ShowDrawMenu();
+                }
+                else if (option == Option.Resign)
+                {
                     gameState.Resign();
+                    ShowGameOver();
+                }
+                else if (option == Option.Exit)
+                {
+                    Application.Current.Shutdown();
+                }
+            };
+        }
+        private void ShowDrawMenu()
+        {
+            DrawMenu drawMenu = new();
+            MenuContainer.Content = drawMenu;
+
+            drawMenu.OptionSelected += option =>
+            {
+                MenuContainer.Content = null;
+                if (option == Option.Draw)
+                {
+                    gameState.DrawAgree();
                     ShowGameOver();
                 }
             };
